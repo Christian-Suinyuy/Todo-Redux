@@ -17,7 +17,7 @@ function Card(details: Details){
     return (
         <section className="grid grid-cols-[2fr_.5fr] bg-blue-900 text-white items-center mx-3 p-2">
             <textarea  readOnly= {!toEdit ? true : false} value={current} 
-                onChange={(e)=>(setCurent(c=> c= e.target.value))} 
+                onChange={(e)=>(setCurent(e.target.value))} 
                 className={`${toEdit ? "bg-slate-100 text-black" : ""} focus:outline-0 text-center`}> </textarea>
             <div id="buttons" className="">
                 <div className={`${toEdit ? "hidden": "flex"} gap-7`}>
