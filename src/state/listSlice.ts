@@ -13,14 +13,14 @@ interface Todos {
     list: todo[],
 }
 
-const loaded = JSON.parse(localStorage.getItem("reduxTodo")|| "") || []
-console.log(loaded)
+const loaded = (localStorage.getItem("reduxTodo")) || ""
+
+
 const initialState: Todos = {
-    list: [...loaded.list]
+    list: [...JSON.parse(loaded).list]
 }
 
 function saveToStorge(param:Todos){
-
     localStorage.setItem("reduxTodo",JSON.stringify(param))
 }
 

@@ -11,6 +11,7 @@ type Details = {
 function Card(details: Details){
     let [current, setCurent] = useState<string>(details?.description)
     let [toEdit, setbuttons] = useState<boolean>(false)
+    console.log({...details})
 
     const dispatch = useDispatch()
     return (
