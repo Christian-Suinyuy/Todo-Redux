@@ -9,11 +9,10 @@ import type { RootState } from './state/store'
 function App() {
   const todos = useSelector((state: RootState)=> state.todo)
   return (
-    <section className='pt-5 flex min-w-fit flex-col gap-5 bg-blue-800 min-h-screen'>
+    <section className='pt-5 md:px-40 justify-center items-center flex min-w-fit flex-col gap-5 bg-blue-800 min-h-screen'>
       <AddTask/>
       <div className="container flex flex-col gap-2">
-        {todos?.list?.map((todo,idx)=><Card key={todo+idx} description={todo} id={idx}/>)}
-        
+        {todos?.list?.map((todo,idx)=><Card key={todo.description+idx} {...todo} id={idx}/>)}
       </div>
     </section>
   )

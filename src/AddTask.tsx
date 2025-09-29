@@ -1,9 +1,13 @@
 import { useState } from "react"
 import { addTodo } from "./state/listSlice"
 import { useDispatch} from "react-redux"
+import type { todo } from "./state/listSlice"
 
 function AddTask(){
-    let [inputElem, setElem] = useState<string>("")
+    let [inputElem, setElem] = useState<todo>({
+        description: "",
+        completed: false
+    })
     const dispatch = useDispatch()
 
     return (
@@ -11,9 +15,9 @@ function AddTask(){
             <form  action="#" className="flex flex-col justify-between items-center">
                     <h2 className="text-2xl">Task</h2>
                 <label htmlFor="task" className=" flex h-10">
-                    <input value={inputElem} onChange={(e)=> setElem(e.target.value)} type="text" id="task" className="bg-white max-w-70 p-2" />
+                    <input value={inputElem.description} onChange={(e)=> setElem(i => i ={...i, description : e.target.value})} type="text" id="task" className="bg-white max-w-70 p-2" />
                     <button type="submit" onClick={()=>{inputElem && dispatch(addTodo(inputElem))
-                        setElem("")}}  className=" bg-green-400 w-18">+ADD</button>
+                        setElem(s=> s ={...s, description: ""})}}  className=" bg-green-400 w-18">+ADD</button>
                 </label>
             </form>
         </section>

@@ -1,10 +1,11 @@
 import { useState } from "react"
-import { removeTodo, updateTodo } from "./state/listSlice"
+import { removeTodo, updateTodo, markAsDone } from "./state/listSlice"
 import { useDispatch } from "react-redux"
 
 type Details = {
     description: string,
-    id: number
+    id: number,
+    completed:boolean
 }
 
 function Card(details: Details){
@@ -12,23 +13,24 @@ function Card(details: Details){
     let [toEdit, setbuttons] = useState<boolean>(false)
 
     const dispatch = useDispatch()
-    console.log(toEdit)
-    
     return (
-        <section className="grid grid-cols-[2fr_.5fr] bg-blue-900 text-white items-center mx-3 p-2">
+        <section className={`grid gap-2 grid-cols-[.1fr_2fr_.5fr] ${details.completed ? "line-through opacity-50": ""} bg-blue-900 text-white items-center mx-3 p-2`}>
+            <span onClick={()=> dispatch((markAsDone(details.id)))}  className={` border w-4 h-4 rounded-full ${details.completed && "bg-green-500"}`}></span>
             <textarea  readOnly= {!toEdit ? true : false} value={current} 
                 onChange={(e)=>(setCurent(e.target.value))} 
                 className={`${toEdit ? "bg-slate-100 text-black" : ""} focus:outline-0 text-center`}> </textarea>
             <div id="buttons" className="">
                 <div className={`${toEdit ? "hidden": "flex"} gap-7`}>
-                    <button className="bg-blue-700 " onClick={()=> dispatch(removeTodo(details.id))} > Delete</button> 
-                    <button onClick={()=> setbuttons(b=> !b)} className="bg-blue-700" > Edit</button> 
+                    <button className="rounded bg-blue-950 px-4 " onClick={()=> dispatch(removeTodo(details.id))} > Delete</button> 
+                    <button onClick={()=> setbuttons(b=> !b)} className="rounded bg-blue-950 px-4" > Edit</button> 
+                    <button onClick={()=> dispatch((markAsDone(details.id)))} className="rounded bg-blue-950 px-4" > Done</button> 
+
                 </div>
-                <div className={`alternative  gap-1 ${toEdit ? "flex" : "hidden"}`}>
-                    <button className="bg-blue-700 " onClick={()=> {
+                <div className={`alternative  justify-around ${toEdit ? "flex" : "hidden"}`}>
+                    <button className="rounded bg-blue-950 px-2 " onClick={()=> {
                         setCurent(details.description)
                         setbuttons( b=> b= !b )}} > cancel</button> 
-                    <button className="bg-blue-700 " onClick={()=>{
+                    <button className="rounded bg-blue-950 px-2" onClick={()=>{
                         dispatch(updateTodo({description:current,idx: details.id}))
                         setbuttons( b=> b= !b )
                     }}> save</button> 
