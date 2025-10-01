@@ -1,0 +1,33 @@
+mutation CreateTodoItem @auth(level: USER) {
+  todoItem_insert(data: {
+    description: "New todo item",
+    todoListId_expr: "uuidV4()",
+    createdAt_expr: "request.time"
+  })
+}
+
+query ListTodoLists @auth(level: USER) {
+  todoLists {
+    id
+    name
+    description
+    isCompleted
+  }
+}
+
+mutation UpdateTodoList($todoListId: UUID!, $isCompleted: Boolean!) @auth(level: USER) {
+  todoList_update(
+    id: $todoListId
+    data: {
+      isCompleted: $isCompleted
+    }
+  )
+}
+
+query GetUser @auth(level: USER) {
+  user(key: {id_expr: "auth.uid"}) {
+    id
+    username
+    email
+  }
+}

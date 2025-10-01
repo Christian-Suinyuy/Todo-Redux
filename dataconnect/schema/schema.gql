@@ -1,0 +1,21 @@
+type User @table {
+  username: String!
+  email: String
+  createdAt: Timestamp!
+}
+
+type TodoList @table {
+  user: User!
+  name: String!
+  description: String
+  isCompleted: Boolean
+  createdAt: Timestamp!
+}
+
+type TodoItem @table {
+  todoList: TodoList!
+  description: String!
+  isCompleted: Boolean
+  dueDate: Date
+  createdAt: Timestamp!
+}
